@@ -124,7 +124,6 @@ namespace switch_my_shell
             Name = "Form1";
             Text = "Switch shell";
             Icon = Properties.Resources.Icon;
-            Load += Form1_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
