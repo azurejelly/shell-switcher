@@ -1,15 +1,15 @@
-﻿using System.Configuration;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace switch_my_shell
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private SelectedShell selectedShell;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+            selectedShell = SelectedShell.None;
         }
 
         private void customShell_CheckedChanged(object sender, EventArgs e)
@@ -50,18 +50,26 @@ namespace switch_my_shell
                 return;
             }
 
-            // i couldn't do this with regular APIs so here goes nothing (im tired (its 3 am))
             string user = Environment.UserName;
-            Process process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/c taskkill /f /fi \"USERNAME eq " + user + "\" /im " + customShell
-                + " & taskkill /f /fi \"USERNAME eq " + user + "\" /im explorer.exe";
+            var sessionId = Process.GetCurrentProcess().SessionId;
+            var customShellWithoutExt = Path.GetFileNameWithoutExtension(customShell);
+            string[] targets = { customShellWithoutExt, "explorer" };
 
-            process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit();
+            foreach (Process process in Process.GetProcesses())
+            {
+                try
+                {
+                    if (targets.Contains(process.ProcessName) && process.SessionId == sessionId) {
+                        process.Kill();
+                        process.WaitForExit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to kill matching process {process.ProcessName}: {ex.Message}", "Custom shell", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
 
             switch (selectedShell)
             {

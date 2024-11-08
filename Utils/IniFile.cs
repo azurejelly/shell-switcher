@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace switch_my_shell
+namespace switch_my_shell.Utils
 {
     class IniFile   // revision 11
     {

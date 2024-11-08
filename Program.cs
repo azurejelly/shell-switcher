@@ -1,5 +1,6 @@
 using System.Configuration;
 using System.Diagnostics;
+using switch_my_shell.Utils;
 
 namespace switch_my_shell
 {
@@ -23,7 +24,7 @@ namespace switch_my_shell
                 var loc = CONFIG_FILE.Read("customShellLocation").ToString();
                 if (File.Exists(loc))
                 {
-                    Application.Run(new Form1());
+                    Application.Run(new MainForm());
                     return;
                 }
             }
@@ -71,7 +72,7 @@ namespace switch_my_shell
                 return;
             }
 
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }
