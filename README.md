@@ -1,4 +1,4 @@
-# Switch my shell
+# Switch my shell [![.NET](https://github.com/azurejelly/shell-switcher/actions/workflows/dotnet.yml/badge.svg)](https://github.com/azurejelly/shell-switcher/actions/workflows/dotnet.yml)
 A probably not very well made utility to quickly switch Windows shells.
 
 <p align="center">
