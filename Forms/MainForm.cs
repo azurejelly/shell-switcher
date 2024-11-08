@@ -31,13 +31,13 @@ namespace switch_my_shell
 
             selectedShell = SelectedShell.Default;
         }
-    
-        private void button1_Click(object sender, EventArgs e)
+
+        private void apply_Click(object sender, EventArgs e)
         {
             var config = Program.CONFIG_FILE;
             if (config == null)
             {
-                MessageBox.Show("Failed to read custom shell location", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Failed to read configuration. Exiting.", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 Environment.Exit(-1);
                 return;
             }
@@ -45,7 +45,7 @@ namespace switch_my_shell
             var customShell = config.Read("customShellLocation");
             if (!File.Exists(customShell))
             {
-                MessageBox.Show("Failed to find custom shell", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Could not find custom shell. Exiting.", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 Environment.Exit(-1);
                 return;
             }
@@ -59,7 +59,8 @@ namespace switch_my_shell
             {
                 try
                 {
-                    if (targets.Contains(process.ProcessName) && process.SessionId == sessionId) {
+                    if (targets.Contains(process.ProcessName) && process.SessionId == sessionId)
+                    {
                         process.Kill();
                         process.WaitForExit();
                     }
@@ -86,7 +87,7 @@ namespace switch_my_shell
 
                         if (!File.Exists(defShell))
                         {
-                            MessageBox.Show("Cannot switch to default Windows shell as it is not present.", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Failed to switch to default Windows shell as it is not present.", "Switch shell", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
