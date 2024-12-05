@@ -24,11 +24,11 @@ I imagine you can already see why this can become a bit tedious after a while.
 ## Project setup
 Clone the repository by using:
 ```ps1
-git clone https://github.com/azurejelly/shell-switcher
-cd .\shell-switcher
+git clone "https://github.com/azurejelly/shell-switcher"
+cd ".\shell-switcher"
 ```
 
 Then open the solution on Visual Studio 2022:
 ```ps1
-start switch-my-shell.sln
+start ".\switch-my-shell.sln"
 ```
